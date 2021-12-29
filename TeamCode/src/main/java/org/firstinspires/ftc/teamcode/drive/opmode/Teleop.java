@@ -183,8 +183,8 @@ public class Teleop extends OpMode
         boolean carouselClockWise = gamepad1.y;
         boolean outtakeIn = gamepad1.left_bumper;
         boolean outtakeOut = gamepad1.right_bumper;
-        boolean elevatorUp = gamepad1.dpad_up;
-        boolean elevatorDown = gamepad1.dpad_down;
+        boolean elevatorUp = gamepad1.dpad_down; //switched buttons
+        boolean elevatorDown = gamepad1.dpad_up;
 
 //        Correct equations:
         leftFrontPower   = drive + strafe + turn;
