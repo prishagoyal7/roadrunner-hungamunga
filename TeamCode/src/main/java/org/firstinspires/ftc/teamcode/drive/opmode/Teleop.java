@@ -185,6 +185,13 @@ public class Teleop extends OpMode
         boolean outtakeOut = gamepad1.right_bumper;
         boolean elevatorUp = gamepad1.dpad_down; //switched buttons
         boolean elevatorDown = gamepad1.dpad_up;
+        boolean joystickDown1 = gamepad1.left_stick_button;
+        boolean joystickDown2 = gamepad1.right_stick_button;
+        int driveMultiplier = 3000;
+
+        if (joystickDown1 || joystickDown2) {
+            driveMultiplier = 1000;
+        }
 
 //        Correct equations:
         leftFrontPower   = drive + strafe + turn;
@@ -227,10 +234,10 @@ public class Teleop extends OpMode
         // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated velocity to wheels
-        leftFrontDrive.setVelocity(leftFrontPower * 3000);
-        rightBackDrive.setVelocity(rightBackPower * 3000);
-        leftBackDrive.setVelocity(leftBackPower * 3000);
-        rightFrontDrive.setVelocity(rightFrontPower * 3000);
+        leftFrontDrive.setVelocity(leftFrontPower * driveMultiplier);
+        rightBackDrive.setVelocity(rightBackPower * driveMultiplier);
+        leftBackDrive.setVelocity(leftBackPower * driveMultiplier);
+        rightFrontDrive.setVelocity(rightFrontPower * driveMultiplier);
 
         // intake objects in and out when the corresponding trigger is pressed
         if (intakeIn > 0) {
