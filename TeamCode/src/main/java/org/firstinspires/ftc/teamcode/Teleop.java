@@ -194,8 +194,8 @@ public class Teleop extends OpMode
         double strafe = gamepad1.left_stick_x;
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
-        double intakeIn = gamepad1.left_trigger;
-        double intakeOut = gamepad1.right_trigger;
+        double intakeIn = gamepad1.right_trigger;
+        double intakeOut = gamepad1.left_trigger;
         boolean carouselCounterClock = gamepad1.a;
         boolean carouselClockWise = gamepad1.y;
         boolean sfModeCurrent = gamepad1.b;
@@ -235,18 +235,18 @@ public class Teleop extends OpMode
             }
         }
 
-        if (sfModeCounter == 2) {
-            leftFrontDrive.setVelocity(leftFrontPower * 1000);
-            rightBackDrive.setVelocity(rightBackPower * 1000);
-            leftBackDrive.setVelocity(leftBackPower * 1000);
-            rightFrontDrive.setVelocity(rightFrontPower * 1000);
-        }
-        else {
+//        if (sfModeCounter == 2) {
+//            leftFrontDrive.setVelocity(leftFrontPower * 1000);
+//            rightBackDrive.setVelocity(rightBackPower * 1000);
+//            leftBackDrive.setVelocity(leftBackPower * 1000);
+//            rightFrontDrive.setVelocity(rightFrontPower * 1000);
+//        }
+//        else {
             leftFrontDrive.setVelocity(leftFrontPower * 3000);
             rightBackDrive.setVelocity(rightBackPower * 3000);
             leftBackDrive.setVelocity(leftBackPower * 3000);
             rightFrontDrive.setVelocity(rightFrontPower * 3000);
-        }
+//        }
 //        if (intakeIn > 0) {
 //            //intakeDrive.setVelocity(intakeIn * 1000);
 //            intakeDrive.setPower(intakeIn);
