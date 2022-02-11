@@ -14,38 +14,31 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Autonomous(group = "ff")
 
 public class RedCarousel extends LinearOpMode {
-    private DcMotorEx carouselMotor = null;
+    private Servo carouselServo = null;
     @Override
     public void runOpMode() throws InterruptedException{
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        carouselMotor = hardwareMap.get(DcMotorEx.class, "carousel");
-        carouselMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        carouselServo = hardwareMap.get(Servo.class, "carousel1");
 
         waitForStart();
 
         if (isStopRequested()) return;
-        Pose2d startingPose = new Pose2d(-36, -66, Math.toRadians(90));
+        Pose2d startingPose = new Pose2d(-36, -66, Math.toRadians(270));
 
         drive.setPoseEstimate(startingPose);
         Trajectory traj1 = drive.trajectoryBuilder(startingPose)
-                .splineToSplineHeading(new Pose2d(-60,-56, Math.toRadians(0)), Math.toRadians(90))
+                .lineToLinearHeading(new Pose2d(-63,-66, Math.toRadians(0)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                .lineTo(new Vector2d(-66,-56))
+                .splineTo(new Vector2d(-72,-36), Math.toRadians(0))
                 .build();
-
-        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
-                .strafeTo(new Vector2d(-66,-30))
-                .build();
-
 
         drive.followTrajectory(traj1);
         // run carousel
-        drive.followTrajectory(traj2);
-        carouselMotor.setVelocity(2800 * -1);
+        carouselServo.setPosition(1);
         sleep(4000);
-        drive.followTrajectory(traj3);
+        drive.followTrajectory(traj2);
 
     }
 }

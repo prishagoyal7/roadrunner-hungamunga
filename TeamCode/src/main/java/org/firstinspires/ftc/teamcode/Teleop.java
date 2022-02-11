@@ -71,7 +71,8 @@ public class Teleop extends OpMode
     //    private Servo outtakeServo1 = null;
 //    private Servo outtakeServo2 = null;
 //    private DcMotorEx tunnelDrive =  null;
-    private DcMotorEx elevatorDrive = null;
+    private DcMotorEx elevatorDrive1 = null;
+    private DcMotorEx elevatorDrive2 = null;
     private int dpad_rightToggle = 0;
     private boolean dpadr_pressed = false;
     private int dpad_upToggle = 0;
@@ -110,7 +111,8 @@ public class Teleop extends OpMode
 //        outtakeServo1 = hardwareMap.get(Servo.class, "outtake1");
 //        outtakeServo2 = hardwareMap.get(Servo.class, "outtake2");
         //tunnelDrive = hardwareMap.get(DcMotorEx.class, "tunnel");
-        elevatorDrive = hardwareMap.get(DcMotorEx.class, "elevator");
+        elevatorDrive1 = hardwareMap.get(DcMotorEx.class, "elevator1");
+        elevatorDrive2 = hardwareMap.get(DcMotorEx.class, "elevator2");
 
 
 
@@ -126,7 +128,8 @@ public class Teleop extends OpMode
 //        outtakeServo1.setDirection(Servo.Direction.FORWARD);
 //        outtakeServo2.setDirection(Servo.Direction.REVERSE);
         //tunnelDrive.setDirection(DcMotorEx.Direction.FORWARD);
-        elevatorDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        elevatorDrive1.setDirection(DcMotorEx.Direction.REVERSE);
+        elevatorDrive2.setDirection(DcMotorEx.Direction.REVERSE);
 
 
         // Tell the driver that initialization is complete.
@@ -139,7 +142,8 @@ public class Teleop extends OpMode
         rightBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         intakeDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         outtakeDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevatorDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevatorDrive1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevatorDrive2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //tunnelDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -193,7 +197,7 @@ public class Teleop extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double strafe = gamepad1.left_stick_x;
         double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
+        double turn  =  -gamepad1.right_stick_x;
         double intakeIn = gamepad1.right_trigger;
         double intakeOut = gamepad1.left_trigger;
         boolean carouselCounterClock = gamepad1.a;
@@ -320,13 +324,16 @@ public class Teleop extends OpMode
 //        }
 //
         if (elevatorUp == true) {
-            elevatorDrive.setVelocity(1200);
+            elevatorDrive1.setVelocity(1200);
+            elevatorDrive2.setVelocity(1200);
         }
         else if (elevatorDown == true) {
-            elevatorDrive.setVelocity(-1200);
+            elevatorDrive1.setVelocity(-1200);
+            elevatorDrive2.setVelocity(-1200);
         }
         else{
-            elevatorDrive.setVelocity(0);
+            elevatorDrive1.setVelocity(0);
+            elevatorDrive2.setVelocity(0);
         }
 
 
