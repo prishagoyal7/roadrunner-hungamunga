@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(group = "ff")
 
@@ -18,27 +19,40 @@ public class RedCarousel extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        carouselServo = hardwareMap.get(Servo.class, "carousel1");
+        carouselServo = hardwareMap.get(Servo.class, "carousel2");
 
         waitForStart();
 
         if (isStopRequested()) return;
-        Pose2d startingPose = new Pose2d(-36, -66, Math.toRadians(270));
+        Pose2d startingPose = new Pose2d(-36, 66, Math.toRadians(270));
 
         drive.setPoseEstimate(startingPose);
-        Trajectory traj1 = drive.trajectoryBuilder(startingPose)
-                .lineToLinearHeading(new Pose2d(-63,-66, Math.toRadians(0)))
+        TrajectorySequence seq1 = drive.trajectorySequenceBuilder(startingPose)
+                .forward(5)
+                .turn(Math.toRadians(-95))
+                .back(20)
                 .build();
 
-        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                .splineTo(new Vector2d(-72,-36), Math.toRadians(0))
+        TrajectorySequence seq2 = drive.trajectorySequenceBuilder(seq1.end())
+                .turn(Math.toRadians(-90))
+                .back(18)
                 .build();
 
-        drive.followTrajectory(traj1);
+//        Trajectory traj1 = drive.trajectoryBuilder(startingPose)
+//                .lineTo(new Vector2d(-66,66))
+//                .build();
+//
+//        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+//                .strafeTo(new Vector2d(-66,40))
+//                .build();
+
+
+        drive.followTrajectorySequence(seq1);
         // run carousel
-        carouselServo.setPosition(1);
-        sleep(4000);
-        drive.followTrajectory(traj2);
+        carouselServo.setPosition(.7);
+        sleep(5000);
+        drive.followTrajectorySequence(seq2);
+
 
     }
 }

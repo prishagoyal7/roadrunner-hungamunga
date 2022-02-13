@@ -14,12 +14,12 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(group = "ff")
 
-public class BlueCarousel extends LinearOpMode {
-    private Servo carouselServo = null;
+public class RedWarehouse extends LinearOpMode {
+
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        carouselServo = hardwareMap.get(Servo.class, "carousel2");
+
 
         waitForStart();
 
@@ -28,31 +28,11 @@ public class BlueCarousel extends LinearOpMode {
 
         drive.setPoseEstimate(startingPose);
         TrajectorySequence seq1 = drive.trajectorySequenceBuilder(startingPose)
-                .forward(5)
                 .turn(Math.toRadians(95))
-                .back(22)
+                .forward(50)
                 .build();
-
-        TrajectorySequence seq2 = drive.trajectorySequenceBuilder(seq1.end())
-                .turn(Math.toRadians(90))
-                .back(23)
-                .build();
-
-//        Trajectory traj1 = drive.trajectoryBuilder(startingPose)
-//                .lineTo(new Vector2d(-66,66))
-//                .build();
-//
-//        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-//                .strafeTo(new Vector2d(-66,40))
-//                .build();
-
 
         drive.followTrajectorySequence(seq1);
-        // run carousel
-        carouselServo.setPosition(0);
-        sleep(4000);
-        drive.followTrajectorySequence(seq2);
-
 
     }
 }
